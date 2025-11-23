@@ -1,6 +1,6 @@
 import LiquidEther from "@/components/LiquidEther"
 import { Button } from "@/components/ui/button"
-
+import { Link } from "react-router-dom"
 export const PageIntro = () => {
     return (
         <div className="w-full h-svh relative bg-black overflow-hidden">
@@ -49,7 +49,9 @@ export const PageIntro = () => {
                         hover:shadow-[0_0_35px_#6C4BFFAA]
                         transition-all duration-300 hover:scale-[1.05]
                     ">
-                        Get Started 🚀
+                        <Link to='/home'>
+                            Get Started 🚀
+                        </Link>
                     </Button>
 
                     <Button

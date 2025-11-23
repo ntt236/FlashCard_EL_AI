@@ -1,4 +1,5 @@
 
+import App from "@/App";
 import { PageIntro } from "@/page/PageIntro";
 import { createBrowserRouter } from "react-router";
 
@@ -11,4 +12,8 @@ export const router = createBrowserRouter([
 
         ],
     },
+    {
+        path: "/home",
+        element: <App />
+    }
 ]);
