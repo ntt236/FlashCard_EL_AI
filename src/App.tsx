@@ -1,11 +1,11 @@
-import Header from "./components/Client/Header"
+
+import { RouterProvider } from "react-router"
+import { router } from "./routes"
 
 
 function App() {
   return (
-    <>
-      <Header />
-    </>
+    <RouterProvider router={router} />
   )
 }
 
