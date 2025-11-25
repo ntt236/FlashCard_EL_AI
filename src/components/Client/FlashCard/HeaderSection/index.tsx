@@ -21,7 +21,7 @@ const HeaderSection = () => {
             </div>
 
             {/* Tabs + Search */}
-            <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
                 {/* Tabs */}
                 <div className="flex gap-2 bg-[#1A1A25] p-1 rounded-xl">

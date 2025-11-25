@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <>
 
-      <header className="w-full border-b sticky top-0 bg-[#63377752] border-white/10  backdrop-blur-xl">
+      <header className="w-full border-b sticky top-0 bg-[#63377763] border-white/10  backdrop-blur-xl">
         <div className="max-w-7xl mx-auto flex justify-between items-center px-6 h-16">
           <Link to="/home" className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-[#6C4BFF] shadow-[0_0_10px_#6C4BFF]" />

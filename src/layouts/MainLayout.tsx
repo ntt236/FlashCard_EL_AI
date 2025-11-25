@@ -4,11 +4,11 @@ import { Outlet } from "react-router-dom"
 
 export const MainLayout = () => {
     return (
-        <div className="min-h-screen flex flex-col bg-[#29292e] text-white">
+        <div className="min-h-screen flex flex-col bg-[#44444e] text-white">
 
             <Header />
 
-            <main className="flex-1 pb-14">
+            <main className="flex-1">
                 <Outlet />
             </main>
 
