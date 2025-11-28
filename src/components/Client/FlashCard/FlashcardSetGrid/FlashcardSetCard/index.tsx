@@ -1,16 +1,10 @@
+import type { FlashcardSetData } from "@/types/flashCard";
 import { Settings } from "lucide-react";
 import { Link } from "react-router-dom";
 
-export interface FlashcardSetData {
-    title: string;
-    desc: string;
-    learned: number;
-    learning: number;
-    newWord: number;
-    accuracy: number;
-}
 
 const FlashcardSetCard = ({
+    _id,
     title,
     desc,
     learned,
@@ -23,7 +17,7 @@ const FlashcardSetCard = ({
             <div className="flex justify-between items-start">
                 <div>
                     <h3 className="text-lg font-semibold text-white">{title}</h3>
-                    <p className="text-gray-400 text-sm">{desc}</p>
+                    <p className="text-gray-400 text-sm min-h-5">{desc || "Chưa có mô tả"}</p>
                 </div>
 
                 <button className="cursor-pointer">
@@ -52,8 +46,8 @@ const FlashcardSetCard = ({
                 </span>
 
                 <Link
-                    to="#"
-                    className="px-4 py-2 bg-purple-500 hover:bg-purple-700 rounded-lg text-white"
+                    to={`/flash-card/${_id}`}
+                    className="px-4 py-2 bg-purple-500 hover:bg-purple-700 rounded-lg text-white font-medium"
                 >
                     Học ngay
                 </Link>

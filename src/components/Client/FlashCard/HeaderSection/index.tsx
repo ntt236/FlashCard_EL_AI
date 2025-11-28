@@ -1,8 +1,14 @@
-import { Plus, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import StatsCard from "./StatsCard";
-import { Link } from "react-router-dom";
+import { CreateFlashcardModal } from "./CreateFlashcardModal"; // 1. Import Modal
 
-const HeaderSection = () => {
+// 2. Định nghĩa Props để nhận hàm refresh
+interface HeaderSectionProps {
+    onRefresh: () => void;
+}
+
+const HeaderSection = ({ onRefresh }: HeaderSectionProps) => {
+    // Stats giữ nguyên (hoặc sau này có thể nhận từ props để động hóa)
     const stats = [
         { label: "Tất cả từ vựng", value: 2847, tag: "Tổng", color: "from-blue-500 to-blue-600" },
         { label: "Đã học thuộc", value: 1923, tag: "Hoàn thành", color: "from-green-500 to-green-600" },
@@ -36,7 +42,7 @@ const HeaderSection = () => {
                     </button>
                 </div>
 
-                {/* Search */}
+                {/* Search & Action */}
                 <div className="flex gap-3 items-center w-full lg:w-auto">
                     <div className="flex items-center bg-[#1A1A25] px-4 py-2 rounded-xl w-full lg:w-72">
                         <Search className="w-5 h-5 text-gray-400" />
@@ -46,13 +52,8 @@ const HeaderSection = () => {
                         />
                     </div>
 
-                    <Link
-                        to="/flash-card/create"
-                        className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-xl"
-                    >
-                        <Plus className="w-5 h-5" />
-                        Tạo bộ flashcard mới
-                    </Link>
+                    {/* 3. Thay thế Link bằng Modal và truyền hàm onSuccess */}
+                    <CreateFlashcardModal onSuccess={onRefresh} />
                 </div>
 
             </div>

@@ -1,27 +1,15 @@
-import { createSlice, createAsyncThunk, } from '@reduxjs/toolkit';
-import Cookies from 'js-cookie';
-import api from '../../lib/api';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
+import api from "../../lib/api";
+import type { AuthState } from "@/types/auth";
 
 // Định nghĩa kiểu dữ liệu User
-interface User {
-    _id: string;
-    username: string;
-    email: string;
-}
-
-interface AuthState {
-    user: User | null;
-    token: string | null;
-    isAuthenticated: boolean;
-    loading: boolean;
-    error: string | null;
-}
 
 // Khởi tạo state ban đầu (thử lấy token từ cookie nếu user F5 trang)
 const initialState: AuthState = {
     user: null, // Tạm thời null, sau này có thể gọi API /me để lấy lại info
-    token: Cookies.get('accessToken') || null,
-    isAuthenticated: !!Cookies.get('accessToken'),
+    token: Cookies.get("accessToken") || null,
+    isAuthenticated: !!Cookies.get("accessToken"),
     loading: false,
     error: null,
 };
@@ -30,33 +18,33 @@ const initialState: AuthState = {
 
 // 1. Đăng nhập
 export const loginUser = createAsyncThunk(
-    'auth/login',
+    "auth/login",
     async (userData: any, { rejectWithValue }) => {
         try {
-            const response = await api.post('/auth/login', userData);
+            const response = await api.post("/auth/login", userData);
             return response.data; // Trả về { user, token }
         } catch (err: any) {
-            return rejectWithValue(err.response?.data?.message || 'Lỗi đăng nhập');
+            return rejectWithValue(err.response?.data?.message || "Lỗi đăng nhập");
         }
     }
 );
 
 // 2. Đăng ký
 export const registerUser = createAsyncThunk(
-    'auth/register',
+    "auth/register",
     async (userData: any, { rejectWithValue }) => {
         try {
-            const response = await api.post('/auth/register', userData);
+            const response = await api.post("/auth/register", userData);
             return response.data;
         } catch (err: any) {
-            return rejectWithValue(err.response?.data?.message || 'Lỗi đăng ký');
+            return rejectWithValue(err.response?.data?.message || "Lỗi đăng ký");
         }
     }
 );
 
 // --- SLICE ---
 const authSlice = createSlice({
-    name: 'auth',
+    name: "auth",
     initialState,
     reducers: {
         // Hàm đăng xuất
@@ -65,7 +53,7 @@ const authSlice = createSlice({
             state.token = null;
             state.isAuthenticated = false;
             state.error = null;
-            Cookies.remove('accessToken'); // Xóa cookie
+            Cookies.remove("accessToken"); // Xóa cookie
         },
     },
     extraReducers: (builder) => {
@@ -82,7 +70,7 @@ const authSlice = createSlice({
                 state.token = action.payload.token;
 
                 // Lưu token vào Cookie (Hết hạn sau 7 ngày)
-                Cookies.set('accessToken', action.payload.token, { expires: 7 });
+                Cookies.set("accessToken", action.payload.token, { expires: 7 });
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.loading = false;
@@ -94,7 +82,7 @@ const authSlice = createSlice({
                 state.isAuthenticated = true;
                 state.user = action.payload;
                 state.token = action.payload.token;
-                Cookies.set('accessToken', action.payload.token, { expires: 7 });
+                Cookies.set("accessToken", action.payload.token, { expires: 7 });
             });
     },
 });

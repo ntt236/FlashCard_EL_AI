@@ -1,9 +1,5 @@
-interface StatsCardProps {
-    label: string;
-    value: number;
-    tag: string;
-    color: string;
-}
+import type { StatsCardProps } from "@/types/flashCard";
+
 
 const StatsCard = ({ label, value, tag, color }: StatsCardProps) => {
     return (
