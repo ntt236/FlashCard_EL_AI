@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Loader2, Volume2 } from "lucide-react";
+import { ArrowLeft, Loader2, Trash2, Volume2 } from "lucide-react";
 
 import { AddCardModal } from "@/components/Client/FlashCard/AddCardModal";
 import type { FlashcardSetResponse } from "@/types/flashCard";
-import { getFlashcardSetDetail } from "@/service/flashcardService";
+import { deleteCardFromSet, getFlashcardSetDetail } from "@/service/flashcardService";
 
 export const FlashCardDetailPage = () => {
     const { id } = useParams(); // Lấy ID từ URL
@@ -16,7 +16,6 @@ export const FlashCardDetailPage = () => {
     const fetchDetail = async () => {
         if (!id) return;
         try {
-            // setLoading(true); // Không cần set loading toàn trang khi refresh
             const data = await getFlashcardSetDetail(id);
             setSetData(data);
         } catch (error) {
@@ -30,6 +29,17 @@ export const FlashCardDetailPage = () => {
         fetchDetail();
     }, [id]);
 
+    const handleDeleteCards = async (cardId: string) => {
+        if (!id || !setData) return
+        try {
+            await deleteCardFromSet(id, cardId)
+            const updatedCards = setData.cards?.filter((data: any) => data._id !== cardId)
+            setSetData({ ...setData, cards: updatedCards })
+        } catch (error) {
+            console.log("🚀 ~ handleDeleteCards ~ error:", error)
+
+        }
+    }
     if (loading) return <div className="flex justify-center pt-20"><Loader2 className="animate-spin text-purple-500" /></div>;
     if (!setData) return <div className="text-center pt-20 text-red-500">Không tìm thấy bộ thẻ!</div>;
 
@@ -56,12 +66,18 @@ export const FlashCardDetailPage = () => {
                 {setData?.cards && setData.cards.length > 0 ? (
                     setData.cards.map((card: any, index: number) => (
                         <div key={index} className="bg-[#1C1C28] p-6 rounded-xl border border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:border-purple-500/50 transition">
-
+                            <button
+                                onClick={() => handleDeleteCards(card._id)}
+                                // className="absolute top-4 right-4 p-2 text-gray-600 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition opacity-0 group-hover:opacity-100"
+                                title="Xóa thẻ"
+                            >
+                                <Trash2 size={18} />
+                            </button>
                             {/* Cột trái: Term + IPA */}
                             <div className="flex-1">
                                 <div className="flex items-center gap-3">
                                     <h3 className="text-xl font-bold text-purple-400">{card.term}</h3>
-                                    {card.phonetic && <span className="text-gray-500 text-sm font-mono">/{card.phonetic}/</span>}
+                                    {card.phonetic && <span className="text-gray-500 text-sm font-mono">{card.phonetic}</span>}
                                     <button className="text-gray-500 hover:text-purple-400"><Volume2 size={18} /></button>
                                 </div>
                                 <span className="text-xs text-gray-500 italic mt-1 block">{card.type}</span>

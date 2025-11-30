@@ -29,3 +29,8 @@ export const addCardToSet = async (setId: string, payload: { mode: 'manual' | 'a
     const response = await api.post(`/flashcards/${setId}/cards`, payload);
     return response.data;
 };
+
+export const deleteCardFromSet = async (setId: string, cardId: string) => {
+    const response = await api.delete(`/flashcards/${setId}/cards/${cardId}`)
+    return response.data
+}
