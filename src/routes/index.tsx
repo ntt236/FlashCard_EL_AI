@@ -6,6 +6,7 @@ import { FlashCardDetailPage } from "@/page/FlashCardDetail";
 import { HomePage } from "@/page/Home";
 // import { PageIntro } from "@/page/PageIntro";
 import { QuizPage } from "@/page/Quiz";
+import { TakeQuizPage } from "@/page/TakeQuizPage";
 import { createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
@@ -36,8 +37,9 @@ export const router = createBrowserRouter([
                 children: [
                     // { path: "/home", element: <HomePage /> },
                     { path: "/flash-card", element: <FlashCardPage /> },
-                    { path: "/quiz", element: <QuizPage /> },
                     { path: "/flash-card/:id", element: <FlashCardDetailPage /> },
+                    { path: "/quiz", element: <QuizPage /> },
+                    { path: "/quiz/:id", element: <TakeQuizPage /> },
                 ]
             }
         ]
