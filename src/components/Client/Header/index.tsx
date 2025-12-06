@@ -53,7 +53,7 @@ const Header = () => {
           <DropdownMenu>
             <DropdownMenuTrigger className="outline-none cursor-pointer">
               <Avatar className="border-2 border-transparent hover:border-[#6C4BFF] transition-all">
-                <AvatarImage src={(user as any)?.avatarUrl || "https://github.com/shadcn.png"} alt={user?.username} />
+                <AvatarImage src={(user as any)?.avatarUrl} alt={user?.username} />
                 <AvatarFallback className="bg-purple-600 text-white font-bold">
                   {getInitials(user?.username || "")}
                 </AvatarFallback>
@@ -73,8 +73,11 @@ const Header = () => {
                   <DropdownMenuSeparator className="bg-white/10" />
 
                   <DropdownMenuItem className="cursor-pointer hover:bg-white/10 focus:bg-white/10 focus:text-white">
-                    <User className="mr-2 h-4 w-4" />
-                    <span>Hồ sơ cá nhân</span>
+                    <Link to="/profile" className="flex">
+                      <User className="mr-2 h-4 w-4" />
+                      <span>Hồ sơ cá nhân</span>
+                    </Link>
+
                   </DropdownMenuItem>
 
                   <DropdownMenuSeparator className="bg-white/10" />

@@ -41,6 +41,18 @@ export const registerUser = createAsyncThunk(
         }
     }
 );
+// 3. check auth
+export const getCurrentUser = createAsyncThunk(
+    'auth/getCurrentUser',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await api.get('/auth/me');
+            return response.data; // Trả về object User
+        } catch (err: any) {
+            return rejectWithValue(err.response?.data?.message || 'Phiên đăng nhập hết hạn');
+        }
+    }
+);
 
 // --- SLICE ---
 const authSlice = createSlice({
@@ -83,7 +95,24 @@ const authSlice = createSlice({
                 state.user = action.payload;
                 state.token = action.payload.token;
                 Cookies.set("accessToken", action.payload.token, { expires: 7 });
+            })
+            // check-auth lấy thông tin user
+            .addCase(getCurrentUser.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(getCurrentUser.fulfilled, (state, action) => {
+                state.loading = false;
+                state.isAuthenticated = true;
+                state.user = action.payload; // QUAN TRỌNG: Khôi phục user vào Redux
+            })
+            .addCase(getCurrentUser.rejected, (state) => {
+                state.loading = false;
+                state.isAuthenticated = false;
+                state.user = null;
+                state.token = null;
+                Cookies.remove('accessToken'); // Token sai/hết hạn thì xóa luôn cookie
             });
+
     },
 });
 

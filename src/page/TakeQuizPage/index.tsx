@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import { Loader2, ArrowRight, CheckCircle, XCircle, RefreshCw, ArrowLeft } from "lucide-react";
+import { Loader2, ArrowRight, CheckCircle, RefreshCw, ArrowLeft } from "lucide-react";
 import { getQuizDetail } from "@/service/quizService";
 
 export const TakeQuizPage = () => {
