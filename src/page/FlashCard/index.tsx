@@ -24,6 +24,9 @@ export const FlashCardPage = () => {
         }
     };
 
+    const handleRemoveSet = (deletedId: string) => {
+        setFlashcards((prev) => prev.filter((item) => item._id !== deletedId));
+    };
     // Gọi lần đầu
     useEffect(() => {
         fetchData();
@@ -32,10 +35,10 @@ export const FlashCardPage = () => {
     return (
         <div className="max-w-7xl mx-auto px-6 py-10">
             {/* Truyền hàm fetchData xuống Header để Modal dùng */}
-            <HeaderSection{...({ onRefresh: fetchData } as any)} />
+            <HeaderSection onRefresh={fetchData} />
 
             {/* Truyền dữ liệu xuống Grid để hiển thị */}
-            <FlashcardSetGrid{...({ data: flashcards, loading } as any)} />
+            <FlashcardSetGrid data={flashcards} loading={loading} onRemove={handleRemoveSet} />
         </div>
     );
 };

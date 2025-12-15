@@ -34,3 +34,8 @@ export const deleteCardFromSet = async (setId: string, cardId: string) => {
     const response = await api.delete(`/flashcards/${setId}/cards/${cardId}`)
     return response.data
 }
+
+export const deleteFlashcardSet = async (setId: string) => {
+    const response = await api.delete(`/flashcards/${setId}`)
+    return response.data
+}

@@ -6,9 +6,10 @@ import { Loader2 } from "lucide-react";
 interface GridProps {
     data: FlashcardSetResponse[];
     loading: boolean;
+    onRemove: (id: string) => void
 }
 
-const FlashcardSetGrid = ({ data, loading }: GridProps) => {
+const FlashcardSetGrid = ({ data, loading, onRemove }: GridProps) => {
     if (loading) {
         return (
             <div className="flex justify-center items-center py-20">
@@ -31,6 +32,7 @@ const FlashcardSetGrid = ({ data, loading }: GridProps) => {
                 <FlashcardSetCard
                     key={card._id}
                     {...card}
+                    onRemove={onRemove}
                 />
             ))}
         </div>
