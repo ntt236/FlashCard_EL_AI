@@ -39,3 +39,8 @@ export const deleteFlashcardSet = async (setId: string) => {
     const response = await api.delete(`/flashcards/${setId}`)
     return response.data
 }
+
+export const reviewFlashcard = async (setId: string, cardId: string, status: string) => {
+    const response = await api.put(`/flashcards/${setId}/cards/${cardId}/review`, { status })
+    return response.data
+}

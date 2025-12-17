@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { ArrowLeft, Loader2, Trash2, Volume2 } from "lucide-react";
 
 import { AddCardModal } from "@/components/Client/FlashCard/AddCardModal";
 import type { FlashcardSetResponse } from "@/types/flashCard";
 import { deleteCardFromSet, getFlashcardSetDetail } from "@/service/flashcardService";
+import { Button } from "@/components/ui/button";
 
 export const FlashCardDetailPage = () => {
     const { id } = useParams(); // Lấy ID từ URL
@@ -59,6 +60,9 @@ export const FlashCardDetailPage = () => {
 
                 {/* MODAL THÊM THẺ Ở ĐÂY */}
                 <AddCardModal setId={setData._id} onSuccess={fetchDetail} />
+                <Button>
+                    <Link to={`/flash-card/${id}/study/${id}`}>🚀 Luyện tập (Study Mode)</Link>
+                </Button>
             </div>
 
             {/* List Cards */}
