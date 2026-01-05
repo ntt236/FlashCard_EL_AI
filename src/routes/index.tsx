@@ -1,6 +1,7 @@
 import ProtectedRoute from "@/components/Client/auth/ProtectedRoute";
 import { MainLayout } from "@/layouts/MainLayout";
 import LoginPage from "@/page/Auth/LoginPage";
+import RegisterPage from "@/page/Auth/RegisterPage";
 import { FlashCardPage } from "@/page/FlashCard";
 import { FlashCardDetailPage } from "@/page/FlashCardDetail";
 import { HomePage } from "@/page/Home";
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
     {
         path: "/login",
         element: <LoginPage />,
+    },
+    {
+        path: "/register",
+        element: <RegisterPage />,
     },
 
 
